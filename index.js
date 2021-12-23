@@ -12,6 +12,7 @@ const client = new Client({ intents: [
 	Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
 	Intents.FLAGS.DIRECT_MESSAGES,
 	Intents.FLAGS.GUILD_BANS,
+	Intents.FLAGS.GUILD_VOICE_STATES
 ]});
 
 client.commands = new Collection();

@@ -4,3 +4,4 @@ config.json
 .replit
 deploy-commands.js
 package-lock.json
+package.json

@@ -1,19 +1,20 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('move')
-		.setDescription('Move all members from a voice channel to another')
-        .addStringOption(option => option.setName('c1')
-            .setDescription('Specify channel 1')
+    data: new SlashCommandBuilder()
+        .setName('move')
+        .setDescription('Move all members from a voice channel to another')
+        .addStringOption(option => option.setName('channel')
+            .setDescription('Specify channel to move to')
             .setRequired(true))
-        .addStringOption(option => option.setName('c2')
-            .setDescription('Specify channel 2')
-            .setRequired(true)),
+        .addBooleanOption(option =>
+            option
+                .setName('self')
+                .setDescription('Include yourself?')),
     async execute(interaction) {
         const channels = [
-            interaction.guild.channels.cache.get(interaction.options.getString('c1')),
-            interaction.guild.channels.cache.get(interaction.options.getString('c2'))
+            interaction.member.voice.channel,
+            interaction.guild.channels.cache.get(interaction.options.getString('channel'))
         ]
 
         const members = channels[0].members;
@@ -22,6 +23,8 @@ module.exports = {
             return;
         }
 
+        const isSelf = interaction.options.getBoolean('self') ?? true;
+
         // Check if channels are voice channels
         if (!channels[0].isVoice() || !channels[1].isVoice()) {
             await interaction.reply("Channels must be voice channels", { ephemeral: true });
@@ -29,7 +32,8 @@ module.exports = {
         }
 
         await members.forEach(async function (member) {
-            member.voice.setChannel(channels[1]).catch(console.error);
+            if (member === interaction.member && !isSelf) return;
+            await member.voice.setChannel(channels[1]).catch(console.error);
         });
 
         await interaction.reply("Moved all members from " + channels[0].name + " to " + channels[1].name);
