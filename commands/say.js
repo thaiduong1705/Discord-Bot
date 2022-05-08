@@ -13,7 +13,7 @@ module.exports = {
         // check if the user has specific id to use this command
         if(interaction.user.id != '772851426837135391') 
         {
-            await interaction.reply(`${interaction.user} tuổi lòn mà nhắn hoho!`);
+            await interaction.reply({content: `${interaction.user} tuổi lòn mà nhắn hoho!`, ephemeral: true});
             return;
         }
         
