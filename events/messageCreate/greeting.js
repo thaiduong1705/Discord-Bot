@@ -50,7 +50,7 @@ module.exports = {
                             await message.channel.send(`Please go to sleep, <@!${message.author.id}>`);
                             console.log("hello4");
                         }
-                        console.log("Greet successfully");
+                        console.log(`Greet successfully in channel ${message.channel.name}`);
                         return;
                     }   
                 
@@ -60,7 +60,7 @@ module.exports = {
                     const reg = new RegExp(`\\b${word}\\b`);  
                     if (reg.test(msg)) {
                         await message.channel.send(`Good bye, <@!${message.author.id}>`);
-                        console.log("Bye successfully!");
+                        console.log(`Bye successfully in channel ${message.channel.name}`);
                         return;
                     }
                 }

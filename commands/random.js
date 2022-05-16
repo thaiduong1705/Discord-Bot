@@ -26,6 +26,6 @@ module.exports = {
         if (interaction.options.getBoolean('see')) 
             await interaction.reply({content: randomChoice.trim(), ephemeral: true});
         else
-            await interaction.reply(randomChoice.trim());
+            await interaction.reply("I choose" + randomChoice.trim());
     }
 }
