@@ -13,7 +13,7 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         // get random response from response.txt
-        const response = fs.readFileSync('./commands/response.txt', 'utf8').toString().split('\r\n');
+        const response = fs.readFileSync('./textFiles/8balls.txt', 'utf8').toString().split('\r\n');
         const random = Math.floor(Math.random() * response.length);
         interaction.reply(response[random]);
     }

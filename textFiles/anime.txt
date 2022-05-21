@@ -1,0 +1,4 @@
+fsi 2
+check 0
+gà 0
+non 0

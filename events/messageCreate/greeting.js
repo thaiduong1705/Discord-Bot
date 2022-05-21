@@ -1,8 +1,6 @@
 const fs = require('fs');
 const time = new Date();
 
-const greeting = fs.readFileSync('./events/messageCreate/texts/greet.txt', 'utf8').toString().split('\r\n');
-const bye = fs.readFileSync('./events/messageCreate/texts/bye.txt', 'utf8').toString().split('\r\n');
 
 // normailize unicode string
 function normalize(str) {
@@ -25,6 +23,9 @@ function normalize(str) {
 module.exports = {
 	name: 'greeting',  
 	async execute(message) {
+        const greeting = fs.readFileSync('./textFiles/greet.txt', 'utf8').toString().split('\r\n');
+        const bye = fs.readFileSync('./textFiles/bye.txt', 'utf8').toString().split('\r\n');
+
         if (message.author.bot)
         {
             return;
