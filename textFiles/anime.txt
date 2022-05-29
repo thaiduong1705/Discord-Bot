@@ -1,4 +1,4 @@
-fsi 2
-check 0
-gà 0
-non 0
+konosuba 2
+tokyo raven 1
+komi-san 1
+baka to test 0

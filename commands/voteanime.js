@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require('fs');
+const { stringify } = require('querystring');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,8 +14,13 @@ module.exports = {
     async execute(interaction) {
         // get the anime list
         var animeList = fs.readFileSync('./textFiles/anime.txt', 'utf8').toString().split('\r\n');
+      
         // get the anime name
         const anime = interaction.options.getString('anime').toLowerCase();
+        if (anime == "" || anime == null) {
+            interaction.reply({content: 'Please enter a valid anime name', ephemeral: true});
+            return;
+        }
         // get the anime name and votes
         var animeName = [];
         var animeVote = [];
@@ -79,8 +85,39 @@ function SortingAnimeListByVote (animeName, animeVote) {
 function GetAnimeNamesAndVotes(animeName, animeVote, animeList) 
 {
     for (let i = 0; i < animeList.length - 1; i++) {
-        const [name, vote] = animeList[i].split(' ');
+        var index = null;
+        for (let j = 0; j < animeList[i].length; j++) {
+            if (animeList[i][j] == ' ') {
+                if (isNumber(animeList[i][j + 1])) {
+
+                    index = j;
+                    break;
+                }
+            }
+        }
+        const [name, vote] = split_at_index(animeList[i], index);
         animeName.push(name);
         animeVote.push(parseInt(vote));
     }
+}
+
+function split_at_index(str, index)
+{
+    if (index == null)
+        return null;
+
+    const result = [str.slice(0, index), str.slice(index + 1)];
+    return result;
+}
+
+function isNumber(char) {
+    if (typeof char !== 'string') {
+      return false;
+    }
+  
+    if (char.trim() === '') {
+      return false;
+    }
+  
+    return !isNaN(char);
 }

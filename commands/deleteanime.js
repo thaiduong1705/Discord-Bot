@@ -11,10 +11,11 @@ module.exports = {
         .setDescription('The anime you want to delete')
     ),
     async execute(interaction) {
-        if (interaction.member.id != '772851426837135391')
-        {
-            interaction.reply({content: 'You are not allowed to delete anime', ephemeral: true});
-            return;
+        if (interaction.member.id != '772851426837135391' || interaction.member.id != '579696314510475264') {
+            {
+                interaction.reply({content: 'You are not allowed to delete anime', ephemeral: true});
+                return;
+            }
         }
         // get the anime list
         var animeList = fs.readFileSync('./textFiles/anime.txt', 'utf8').toString().split('\r\n');
