@@ -18,7 +18,6 @@ module.exports = {
             for (let j = 0; j < animeList[i].length; j++) {
                 if (animeList[i][j] == ' ') {
                     if (isNumber(animeList[i][j + 1])) {
-
                         index = j;
                         break;
                     }
